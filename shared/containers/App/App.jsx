@@ -30,7 +30,7 @@ class App extends React.Component {
                 <hr />
 
                 {this.props.children}
-                <DevTools/>
+
             </div>
         );
     }
