@@ -1,3 +1,7 @@
+import { createDevTools } from 'redux-devtools';
+import LogMonitor from 'redux-devtools-log-monitor';
+import DockMonitor from 'redux-devtools-dock-monitor';
+
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import DevTools from '../DevTools';
@@ -10,6 +14,14 @@ class App extends React.Component {
     };
 
     render() {
+
+        const DevTools = createDevTools(
+            <DockMonitor toggleVisibilityKey='ctrl-h'
+                         changePositionKey='ctrl-q'>
+                <LogMonitor theme='tomorrow' />
+            </DockMonitor>
+        );
+
         const currentPath = this.props.location.pathname
         return (
             <div id="main-view">
@@ -18,6 +30,7 @@ class App extends React.Component {
                 <hr />
 
                 {this.props.children}
+                <DevTools/>
             </div>
         );
     }
