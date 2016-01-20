@@ -45,7 +45,7 @@ export default function (app) {
                 // SASS
                 {
                     test: /\.scss$/,
-                    include: /shared/,
+                    include: '/shared/containers/css/',
                     loaders: [
                         'style',
                         'css',
