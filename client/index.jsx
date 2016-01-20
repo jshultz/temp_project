@@ -17,13 +17,23 @@ const initialState = immutifyState(window.__INITIAL_STATE__);
 
 const store = configureStore({ initialState, browserHistory })
 
+const DevTools = createDevTools(
+    <DockMonitor toggleVisibilityKey='ctrl-h'
+                 changePositionKey='ctrl-q'>
+        <LogMonitor theme='tomorrow' />
+    </DockMonitor>
+);
+
 render(
   <Provider store={store}>
-    <Router history={browserHistory} >
-        <Route name="app" component={App} path="/">
-            <IndexRoute component={Home}/>
-        </Route>
-    </Router>
+    <div>
+        <Router history={browserHistory} >
+            <Route name="app" component={App} path="/">
+                <IndexRoute component={Home}/>
+            </Route>
+        </Router>
+        <DevTools/>
+    </div>
   </Provider>,
   document.getElementById('react-view')
 );
