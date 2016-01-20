@@ -4,8 +4,12 @@ import DevTools from '../containers/DevTools';
 import promiseMiddleware    from 'lib/promiseMiddleware';
 import immutifyState        from 'lib/immutifyState';
 
-//const reducer = combineReducers(rootReducer);
-//const store   = applyMiddleware(promiseMiddleware)(createStore)(reducer, initialState);
+
+const createHistory = require('history/lib/createHashHistory');
+const { syncHistory } = require('redux-simple-router');
+const history = createHistory();
+const middleHistory = syncHistory(history);
+
 
 function withDevTools (middleware) {
     const devTools = window.devToolsExtension
@@ -16,13 +20,14 @@ function withDevTools (middleware) {
 
 const finalCreateStore = compose(
     // Middleware you want to use in development:
-    applyMiddleware(promiseMiddleware),
+    applyMiddleware(promiseMiddleware, middleHistory),
     // Required! Enable Redux DevTools with the monitors you chose
     DevTools.instrument()
 )(createStore);
 
 export default function configureStore({ initialState = {}, history }) {
     const store = finalCreateStore(rootReducer, initialState);
+    middleHistory.listenForReplays(store);
 
     // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
     if (module.hot) {
