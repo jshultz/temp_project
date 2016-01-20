@@ -4,14 +4,12 @@ import DockMonitor from 'redux-devtools-dock-monitor';
 
 import React                from 'react';
 import { render }           from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory }           from 'react-router';
+import { Router, browserHistory }           from 'react-router';
 import { Provider }         from 'react-redux';
+import routes               from 'routes';
 import immutifyState        from 'lib/immutifyState';
 
 import configureStore from '../shared/store/configureStore'
-
-import App                     from '../shared/containers/App/App';
-import Home                    from '../shared/components/Home';
 
 const initialState = immutifyState(window.__INITIAL_STATE__);
 
@@ -27,11 +25,7 @@ const DevTools = createDevTools(
 render(
   <Provider store={store}>
     <div>
-        <Router history={browserHistory} >
-            <Route name="app" component={App} path="/">
-                <IndexRoute component={Home}/>
-            </Route>
-        </Router>
+        <Router children={routes} history={browserHistory} />
         <DevTools/>
     </div>
   </Provider>,
