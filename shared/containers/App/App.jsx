@@ -1,11 +1,16 @@
-import React, { PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
+import DevTools from '../DevTools';
 
-export default class App extends React.Component {
+class App extends React.Component {
     static propTypes = {
+        pathname: PropTypes.string,
+        location: PropTypes.object,
         children: PropTypes.object
     };
 
     render() {
+        const currentPath = this.props.location.pathname
         return (
             <div id="main-view">
                 <h1>Todos</h1>
@@ -13,7 +18,9 @@ export default class App extends React.Component {
                 <hr />
 
                 {this.props.children}
+                <DevTools />
             </div>
         );
     }
 }
+export default (App)
