@@ -6,6 +6,8 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import DevTools from '../DevTools';
 
+import "./App.scss";
+
 class App extends React.Component {
     static propTypes = {
         pathname: PropTypes.string,
